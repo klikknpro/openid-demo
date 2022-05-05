@@ -13,7 +13,7 @@ const Callback = () => {
       redirect_uri: "http://localhost:3000/callback",
       grant_type: "authorization_code",
     });
-    console.log(response.data);
+    console.log(response.data.id_token);
   }
 
   useEffect(() => {
