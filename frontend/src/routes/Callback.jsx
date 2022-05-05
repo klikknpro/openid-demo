@@ -5,23 +5,18 @@ import http from "axios";
 const Callback = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const exchangeToken = async(code) => {
-    const response = await http.post("https://oauth2.googleapis.com/token", {
-      code: code,
-      client_id: "651816047225-1us03r4vchvce7h51t0c49f4u0ip7ubm.apps.googleusercontent.com",
-      client_secret: "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",
-      redirect_uri: "http://localhost:3000/callback",
-      grant_type: "authorization_code",
+  const sendCode = async(code) => {
+    const response = await http.post("http://localhost:4000/api/login", {
+      code,
     });
-    console.log(response.data.id_token);
-  }
+    console.log("sajat token", response.data);
+  };
 
   useEffect(() => {
     const code = searchParams.get("code");
-    exchangeToken(code);
+    sendCode(code);
     // eslint-disable-next-line
   }, [])
-
 
   return (
     <div className="flex-container">
