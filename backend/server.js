@@ -13,6 +13,17 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
+/* === *** === *** === */
+
+app.get("/", (req, res) => {
+  res.send("hello oauth");
+});
+
+app.listen(port, () => {
+  console.log(`Oauth - Openid is listening on port ${port}."`);
+});
+
+/*
 // mongoose.connection
 //   .dropDatabase()
 //   .then(() => console.log("database deleted"))
@@ -24,11 +35,4 @@ mongoose
 // initAuthEntity()
 //   .then((info) => console.log(info))
 //   .catch((err) => console.log(err));
-
-app.listen(port, () => {
-  console.log(`Oauth - Openid is listening on port ${port}."`);
-});
-
-/*
-
 */
