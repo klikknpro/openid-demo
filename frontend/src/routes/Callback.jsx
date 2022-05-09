@@ -1,28 +1,36 @@
 import { React, useEffect, useState } from "react";
-import { Routes, Route, Link, useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import http from "axios";
 
 const Callback = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const sendCode = async(code) => {
-    const response = await http.post("http://localhost:4000/api/login", {
-      code,
-    });
-    console.log("sajat token", response.data);
+  const navigate = useNavigate();
+
+  const sendCode = async (code) => {
+    try {
+      const response = await http.post("http://localhost:4000/api/login", {
+        code,
+      });
+      sessionStorage.setItem("googleToken", response.data);
+      setLoggedIn(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
+    } catch (err) {
+      if (!err.response) return alert("network error");
+      return alert("something went wrong");
+    }
   };
 
   useEffect(() => {
     const code = searchParams.get("code");
     sendCode(code);
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
-  return (
-    <div className="flex-container">
-      <h1>Callback</h1>
-    </div>
-  )
-}
+  return <div className="flex-container">{!loggedIn ? <h1>Loading...</h1> : <h1>You are logged in. Welcome!</h1>}</div>;
+};
 
-export default Callback
+export default Callback;
