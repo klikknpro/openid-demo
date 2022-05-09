@@ -35,7 +35,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Oauth - Openid is listening on port ${port}.`);
+  console.log(`OpenID demo is listening on port ${port}.`);
 });
 
 /*
