@@ -19,6 +19,19 @@ const login = async (req, res) => {
   });
   const decoded = jwt.decode(response.data.id_token);
   const userId = decoded.sub;
+
+  // save user into database, if doesnt exist
+  const userExists = await AuthEntity.findOne({ google_id: userId });
+  if (!userExists) {
+    const newUser = new AuthEntity({
+      email: decoded.email,
+      google_id: userId,
+    });
+    await newUser.save().catch((err) => {
+      return res.status(500).json(err);
+    });
+  }
+
   const token = generateToken(userId);
   res.status(200).json(token);
 };

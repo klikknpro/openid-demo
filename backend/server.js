@@ -18,8 +18,6 @@ app.use("/api/public", publicRouter);
 app.use("/api/private", privateRouter);
 app.use("/api/login", loginRouter);
 
-const { initBaseData } = require("./controllers/init-base-data");
-
 mongoose
   .connect(process.env.CONNECTION_STRING)
   .then(() => console.log("MongoDB connected"))
@@ -27,6 +25,7 @@ mongoose
 
 /* === *** === *** === */
 
+// const { initBaseData } = require("./controllers/init-base-data");
 // initBaseData()
 //   .then((info) => console.log(info))
 //   .catch((err) => console.log(err));
