@@ -2,14 +2,8 @@ import { React, useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Callback from "./routes/Callback";
 import Home from "./routes/Home";
-import { Button } from "@mui/material";
 
 function App() {
-
-  useEffect(() => {
-    //
-  }, [])
-
   return (
     <div className="App">
       <Routes>
