@@ -33,7 +33,8 @@ const Home = () => {
     }
   };
 
-  const googleLogin = () => {
+  // google login
+  const authenticationRequest = () => {
     window.open(
       "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=651816047225-1us03r4vchvce7h51t0c49f4u0ip7ubm.apps.googleusercontent.com&redirect_uri=http://localhost:3000/callback&scope=openid%20email&prompt=select_account"
     );
@@ -47,17 +48,17 @@ const Home = () => {
   return (
     <div className="flex-container">
       <h1>Hello Oauth - Openid</h1>
-      <Button onClick={() => getPublic()} variant="outlined" color="primary" size="medium">
+      <Button onClick={() => getPublic()} variant="outlined" color="secondary" size="medium">
         Public request
       </Button>
       <p>{showPublic}</p>
       {privateAccess && (
-        <Button onClick={() => getPrivate()} variant="outlined" color="primary" size="medium">
+        <Button onClick={() => getPrivate()} variant="outlined" color="secondary" size="medium">
           Private request
         </Button>
       )}
       <p>{showPrivate}</p>
-      <Button onClick={googleLogin} variant="contained" size="small">
+      <Button onClick={authenticationRequest} variant="contained" size="medium">
         Login with Google
       </Button>
     </div>

@@ -31,7 +31,7 @@ mongoose
 //   .catch((err) => console.log(err));
 
 app.listen(port, () => {
-  console.log(`OpenID demo is listening on port ${port}. Please run: "brew services start mongodb-community"`);
+  console.log(`OpenID/OAuth demo is listening on port ${port}. Please run: "brew services start mongodb-community"`);
 });
 
 /*
