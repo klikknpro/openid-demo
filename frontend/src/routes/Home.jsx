@@ -49,6 +49,11 @@ const Home = () => {
     }
   };
 
+  const logout = () => {
+    sessionStorage.removeItem("googleToken");
+    window.location.reload();
+  };
+
   // google login
   const authenticationRequest = () => {
     window.open(
@@ -78,9 +83,15 @@ const Home = () => {
         </Button>
       )}
       <p>{showPrivate}</p>
-      <Button onClick={authenticationRequest} variant="contained" size="medium">
-        Login with Google
-      </Button>
+      {sessionStorage.getItem("googleToken") ? (
+        <Button onClick={logout} variant="contained" color="warning" size="medium">
+          Logout
+        </Button>
+      ) : (
+        <Button onClick={authenticationRequest} variant="contained" size="medium">
+          Login with Google
+        </Button>
+      )}
     </div>
   );
 };
