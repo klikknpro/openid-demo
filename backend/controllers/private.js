@@ -17,13 +17,19 @@ const readPrivate = async (req, res) => {
   const verified = verifyToken(req.headers.authorization);
   if (!verified) return res.sendStatus(401);
 
+  const base = await Base.findOne({ name: "Private" });
+  return res.status(200).json(base.name);
+};
+
+const readUserEmail = async (req, res) => {
+  if (!req.headers) return res.sendStatus(401);
+  const verified = verifyToken(req.headers.authorization);
+  if (!verified) return res.sendStatus(401);
+
   const user = await Profile.findOne({ _id: verified.profile_id });
 
-  const base = await Base.findOne({ name: "Private" });
-  return res.status(200).json({
-    base: base.name,
-    userEmail: user.email,
-  });
+  return res.status(200).json(user.email);
 };
 
 exports.readPrivate = readPrivate;
+exports.readUserEmail = readUserEmail;

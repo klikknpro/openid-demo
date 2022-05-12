@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 const Home = () => {
   const [showPublic, setShowPublic] = useState("");
   const [showPrivate, setShowPrivate] = useState("");
-  const [showEmail, setShowEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [privateAccess, setPrivateAccess] = useState(false);
 
   const getPublic = async () => {
@@ -26,8 +26,22 @@ const Home = () => {
           authorization: sessionStorage.getItem("googleToken"),
         },
       });
-      setShowEmail(response.data.userEmail);
-      return setShowPrivate(response.data.base);
+      return setShowPrivate(response.data);
+    } catch (err) {
+      if (!err.response) return alert("network error");
+      if (err.response.status === 401) return alert("Unauthorized");
+      return alert("something went wrong");
+    }
+  };
+
+  const getUserEmail = async () => {
+    try {
+      const response = await http.get("http://localhost:4000/api/private/user", {
+        headers: {
+          authorization: sessionStorage.getItem("googleToken"),
+        },
+      });
+      return setUserEmail(response.data);
     } catch (err) {
       if (!err.response) return alert("network error");
       if (err.response.status === 401) return alert("Unauthorized");
@@ -43,12 +57,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    sessionStorage.getItem("googleToken") && setPrivateAccess(true);
+    if (sessionStorage.getItem("googleToken")) {
+      setPrivateAccess(true);
+      getUserEmail();
+    }
     // eslint-disable-next-line
   }, []);
 
   return (
     <div className="flex-container">
+      <p className="navbar">{userEmail}</p>
       <h1>Hello Oauth - Openid</h1>
       <Button onClick={() => getPublic()} variant="outlined" color="secondary" size="medium">
         Public request
@@ -60,7 +78,6 @@ const Home = () => {
         </Button>
       )}
       <p>{showPrivate}</p>
-      <p>{showEmail}</p>
       <Button onClick={authenticationRequest} variant="contained" size="medium">
         Login with Google
       </Button>

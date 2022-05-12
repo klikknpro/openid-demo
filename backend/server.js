@@ -11,11 +11,13 @@ app.use(cors());
 /* routers */
 const publicRouter = require("./routes/public");
 const privateRouter = require("./routes/private");
+const userEmailRouter = require("./routes/private"); //*!!!
 const loginRouter = require("./routes/login");
 
 /* mountpoints */
 app.use("/api/public", publicRouter);
 app.use("/api/private", privateRouter);
+app.use("/api/private/user", userEmailRouter);
 app.use("/api/login", loginRouter);
 
 mongoose
