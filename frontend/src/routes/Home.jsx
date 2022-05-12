@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 const Home = () => {
   const [showPublic, setShowPublic] = useState("");
   const [showPrivate, setShowPrivate] = useState("");
+  const [showEmail, setShowEmail] = useState("");
   const [privateAccess, setPrivateAccess] = useState(false);
 
   const getPublic = async () => {
@@ -25,7 +26,8 @@ const Home = () => {
           authorization: sessionStorage.getItem("googleToken"),
         },
       });
-      return setShowPrivate(response.data);
+      setShowEmail(response.data.userEmail);
+      return setShowPrivate(response.data.base);
     } catch (err) {
       if (!err.response) return alert("network error");
       if (err.response.status === 401) return alert("Unauthorized");
@@ -58,6 +60,7 @@ const Home = () => {
         </Button>
       )}
       <p>{showPrivate}</p>
+      <p>{showEmail}</p>
       <Button onClick={authenticationRequest} variant="contained" size="medium">
         Login with Google
       </Button>

@@ -1,6 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const Base = require("../models/base");
+const Profile = require("../models/profile");
 
 const verifyToken = (token) => {
   let verified;
@@ -16,8 +17,13 @@ const readPrivate = async (req, res) => {
   const verified = verifyToken(req.headers.authorization);
   if (!verified) return res.sendStatus(401);
 
-  const response = await Base.findOne({ name: "Private" });
-  return res.status(200).json(response.name);
+  const user = await Profile.findOne({ _id: verified.profile_id });
+
+  const base = await Base.findOne({ name: "Private" });
+  return res.status(200).json({
+    base: base.name,
+    userEmail: user.email,
+  });
 };
 
 exports.readPrivate = readPrivate;

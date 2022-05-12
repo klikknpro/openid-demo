@@ -25,6 +25,11 @@ mongoose
 
 /* === *** === *** === */
 
+// mongoose.connection
+//   .dropDatabase()
+//   .then(() => console.log("database deleted"))
+//   .catch((err) => console.log(err));
+
 // const { initBaseData } = require("./controllers/init-base-data");
 // initBaseData()
 //   .then((info) => console.log(info))
