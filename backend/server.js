@@ -25,13 +25,18 @@ mongoose
 
 /* === *** === *** === */
 
+// mongoose.connection
+//   .dropDatabase()
+//   .then(() => console.log("database deleted"))
+//   .catch((err) => console.log(err));
+
 // const { initBaseData } = require("./controllers/init-base-data");
 // initBaseData()
 //   .then((info) => console.log(info))
 //   .catch((err) => console.log(err));
 
 app.listen(port, () => {
-  console.log(`OpenID demo is listening on port ${port}. Please run: "brew services start mongodb-community"`);
+  console.log(`OpenID/OAuth demo is listening on port ${port}. Please run: "brew services start mongodb-community"`);
 });
 
 /*

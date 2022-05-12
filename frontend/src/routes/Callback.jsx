@@ -8,7 +8,7 @@ const Callback = () => {
 
   const navigate = useNavigate();
 
-  const sendCode = async (code) => {
+  const sendAuthCode = async (code) => {
     try {
       const response = await http.post("http://localhost:4000/api/login", {
         code,
@@ -26,7 +26,7 @@ const Callback = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    sendCode(code);
+    sendAuthCode(code);
     // eslint-disable-next-line
   }, []);
 
