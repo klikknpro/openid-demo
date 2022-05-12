@@ -9,7 +9,26 @@ const UpdateProfile = () => {
   const [nickname, setNickname] = useState("");
 
   const save = async () => {
-    // const response = await http.post("http://localhost:4000/api/private/update-profile");
+    try {
+      const response = await http.post(
+        "http://localhost:4000/api/private/update-profile",
+        {
+          firstName,
+          surname,
+          age,
+          nickname,
+        },
+        {
+          headers: {
+            authorization: sessionStorage.getItem("googleToken"),
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      if (!err.response) return alert("network error");
+      return alert("something went wrong");
+    }
   };
 
   return (

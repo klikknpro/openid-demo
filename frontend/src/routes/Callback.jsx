@@ -4,10 +4,9 @@ import http from "axios";
 import UpdateProfile from "../components/UpdateProfile";
 
 const Callback = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [loggedIn, setLoggedIn] = useState(false);
-
-  const navigate = useNavigate();
 
   const sendAuthCode = async (code) => {
     try {

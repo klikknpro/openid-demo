@@ -32,7 +32,22 @@ const readUserEmail = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  return res.status(200);
+  if (!req.headers) return res.sendStatus(401);
+  if (!req.body) return res.sendStatus(400);
+  const verified = verifyToken(req.headers.authorization);
+  if (!verified) return res.sendStatus(401);
+
+  const filter = { _id: verified.profile_id };
+  const update = {
+    first_name: req.body.firstName,
+    surname: req.body.surname,
+    age: req.body.age,
+    nickname: req.body.nickname,
+  };
+  const options = { new: true };
+  const updatedProfile = await Profile.findOneAndUpdate(filter, update, options);
+
+  return res.status(200).json(updatedProfile);
 };
 
 exports.readPrivate = readPrivate;

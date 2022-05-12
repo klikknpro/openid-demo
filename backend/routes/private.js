@@ -3,6 +3,6 @@ const { readPrivate, readUserEmail, updateProfile } = require("../controllers/pr
 
 router.get("/", readPrivate);
 router.get("/profile", readUserEmail);
-router.post("/private/update-profile", updateProfile);
+router.post("/update-profile", updateProfile);
 
 module.exports = router;
