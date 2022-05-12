@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const { readPrivate, readUserEmail } = require("../controllers/private");
+const { readPrivate, readUserEmail, updateProfile } = require("../controllers/private");
 
 router.get("/", readPrivate);
-router.get("/user", readUserEmail);
+router.get("/profile", readUserEmail);
+router.post("/private/update-profile", updateProfile);
 
 module.exports = router;

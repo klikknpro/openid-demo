@@ -31,5 +31,10 @@ const readUserEmail = async (req, res) => {
   return res.status(200).json(user.email);
 };
 
+const updateProfile = async (req, res) => {
+  return res.status(200);
+};
+
 exports.readPrivate = readPrivate;
 exports.readUserEmail = readUserEmail;
+exports.updateProfile = updateProfile;

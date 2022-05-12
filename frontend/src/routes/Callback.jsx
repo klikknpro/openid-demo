@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import http from "axios";
+import UpdateProfile from "../components/UpdateProfile";
 
 const Callback = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,9 +16,9 @@ const Callback = () => {
       });
       sessionStorage.setItem("googleToken", response.data);
       setLoggedIn(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 2500);
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 2500);
     } catch (err) {
       if (!err.response) return alert("network error");
       return alert("something went wrong");
@@ -30,7 +31,18 @@ const Callback = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <div className="flex-container">{!loggedIn ? <h1>Loading...</h1> : <h1>You are logged in. Welcome!</h1>}</div>;
+  return (
+    <div className="callback">
+      {!loggedIn ? (
+        <h1>Loading...</h1>
+      ) : (
+        <div className="flex-container">
+          <h1>You are logged in. Welcome!</h1>
+          <UpdateProfile />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Callback;

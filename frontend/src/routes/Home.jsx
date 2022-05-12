@@ -36,7 +36,7 @@ const Home = () => {
 
   const getUserEmail = async () => {
     try {
-      const response = await http.get("http://localhost:4000/api/private/user", {
+      const response = await http.get("http://localhost:4000/api/private/profile", {
         headers: {
           authorization: sessionStorage.getItem("googleToken"),
         },
