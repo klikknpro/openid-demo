@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import http from "axios";
 import getUserEmail from "../utils/getUserEmail";
 import { Button } from "@mui/material";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [showPublic, setShowPublic] = useState("");
   const [showPrivate, setShowPrivate] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -57,7 +59,16 @@ const Home = () => {
 
   return (
     <div className="flex-container">
-      <p className="navbar">{userEmail}</p>
+      <div className="navbar">
+        {privateAccess && (
+          <>
+            <Button onClick={() => navigate("/profile")} variant="contained" color="secondary" size="small">
+              Edit my profile
+            </Button>
+            <p>{userEmail}</p>
+          </>
+        )}
+      </div>
       <h1>Hello Oauth - Openid</h1>
       <Button onClick={() => getPublic()} variant="outlined" color="secondary" size="medium">
         Public request

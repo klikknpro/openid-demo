@@ -63,6 +63,7 @@ select {
   display: flex;
   justify-content: flex-end;
   align-items: right;
+  gap: 20px;
 
   background-color: rgba(128, 128, 128, 0.114);
   border-bottom: 2px solid gray;
