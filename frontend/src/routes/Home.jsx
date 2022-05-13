@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import http from "axios";
+import getUserEmail from "../utils/getUserEmail";
 import { Button } from "@mui/material";
 
 const Home = () => {
@@ -34,21 +35,6 @@ const Home = () => {
     }
   };
 
-  const getUserEmail = async () => {
-    try {
-      const response = await http.get("http://localhost:4000/api/private/profile", {
-        headers: {
-          authorization: sessionStorage.getItem("googleToken"),
-        },
-      });
-      return setUserEmail(response.data);
-    } catch (err) {
-      if (!err.response) return alert("network error");
-      if (err.response.status === 401) return alert("Unauthorized");
-      return alert("something went wrong");
-    }
-  };
-
   const logout = () => {
     sessionStorage.removeItem("googleToken");
     window.location.reload();
@@ -64,7 +50,7 @@ const Home = () => {
   useEffect(() => {
     if (sessionStorage.getItem("googleToken")) {
       setPrivateAccess(true);
-      getUserEmail();
+      getUserEmail().then((data) => setUserEmail(data));
     }
     // eslint-disable-next-line
   }, []);

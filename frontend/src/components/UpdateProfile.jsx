@@ -8,15 +8,6 @@ const UpdateProfile = () => {
   const [age, setAge] = useState("");
   const [nickname, setNickname] = useState("");
 
-  /*
-{
-    first_name: req.body.firstName,
-    surname: req.body.surname,
-    age: req.body.age,
-    nickname: req.body.nickname,
-  }
-*/
-
   const save = async () => {
     const first_name = firstName.length === 0 ? undefined : "first_name";
     const surName = surname.length === 0 ? undefined : "surname";

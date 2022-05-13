@@ -53,7 +53,7 @@ const login = async (req, res) => {
     });
 
     const token = generateToken(profile._id);
-    return res.status(200).json(token);
+    return res.status(201).json(token);
   }
 };
 

@@ -1,12 +1,15 @@
 import { React, useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import http from "axios";
+import getUserEmail from "../utils/getUserEmail";
 import UpdateProfile from "../components/UpdateProfile";
+import { Button } from "@mui/material";
 
 const Callback = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [newUser, setNewUser] = useState(false);
 
   const sendAuthCode = async (code) => {
     try {
@@ -14,10 +17,11 @@ const Callback = () => {
         code,
       });
       sessionStorage.setItem("googleToken", response.data);
-      setLoggedIn(true);
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 2500);
+      getUserEmail().then((data) => setUserEmail(data));
+      if (response.status === 201) return setNewUser(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (err) {
       if (!err.response) return alert("network error");
       return alert("something went wrong");
@@ -31,17 +35,29 @@ const Callback = () => {
   }, []);
 
   return (
-    <div className="callback">
-      {!loggedIn ? (
-        <h1>Loading...</h1>
-      ) : (
-        <div className="flex-container">
-          <h1>You are logged in. Welcome!</h1>
+    <div className="flex-container">
+      <h2>Welcome {userEmail}! You are logged in.</h2>
+      {newUser && (
+        <>
+          <p>
+            You can now finish creating your profile and hit "SAVE", or return to Home. (Don't worry, you can still
+            update your profile later.)
+          </p>
+
           <UpdateProfile />
-        </div>
+          <Button onClick={navigate("/")} variant="contained" size="medium">
+            Back to HOME
+          </Button>
+        </>
       )}
     </div>
   );
 };
 
 export default Callback;
+
+/*
+// setTimeout(() => {
+      //   navigate("/");
+      // }, 2500);
+*/
