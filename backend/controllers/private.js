@@ -39,7 +39,7 @@ const updateProfile = async (req, res) => {
 
   const filter = { _id: verified.profile_id };
   const update = {
-    first_name: req.body.firstName,
+    first_name: req.body.first_name,
     surname: req.body.surname,
     age: req.body.age,
     nickname: req.body.nickname,

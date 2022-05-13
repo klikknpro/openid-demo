@@ -8,15 +8,28 @@ const UpdateProfile = () => {
   const [age, setAge] = useState("");
   const [nickname, setNickname] = useState("");
 
+  /*
+{
+    first_name: req.body.firstName,
+    surname: req.body.surname,
+    age: req.body.age,
+    nickname: req.body.nickname,
+  }
+*/
+
   const save = async () => {
+    const first_name = firstName.length === 0 ? undefined : "first_name";
+    const surName = surname.length === 0 ? undefined : "surname";
+    const aGe = age.length === 0 ? undefined : "age";
+    const nickName = nickname.length === 0 ? undefined : "nickname";
     try {
       const response = await http.post(
         "http://localhost:4000/api/private/update-profile",
         {
-          firstName,
-          surname,
-          age,
-          nickname,
+          [first_name]: firstName,
+          [surName]: surname,
+          [aGe]: age,
+          [nickName]: nickname,
         },
         {
           headers: {
