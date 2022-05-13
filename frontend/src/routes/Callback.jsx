@@ -36,7 +36,8 @@ const Callback = () => {
 
   return (
     <div className="flex-container">
-      <h2>Welcome {userEmail}! You are logged in.</h2>
+      <h2>{userEmail}</h2>
+      <h2>Welcome to Plather! You are logged in.</h2>
       {newUser && (
         <>
           <p>
@@ -45,7 +46,7 @@ const Callback = () => {
           </p>
 
           <UpdateProfile />
-          <Button onClick={navigate("/")} variant="contained" size="medium">
+          <Button onClick={() => navigate("/")} variant="contained" size="medium">
             Back to HOME
           </Button>
         </>

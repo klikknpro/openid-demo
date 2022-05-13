@@ -1,12 +1,15 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import http from "axios";
 import { Button, TextField } from "@mui/material";
 
 const UpdateProfile = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
   const [nickname, setNickname] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const save = async () => {
     const first_name = firstName.length === 0 ? undefined : "first_name";
@@ -28,7 +31,10 @@ const UpdateProfile = () => {
           },
         }
       );
-      console.log(response.data);
+      setDisable(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (err) {
       if (!err.response) return alert("network error");
       return alert("something went wrong");
@@ -69,9 +75,10 @@ const UpdateProfile = () => {
         variant="filled"
         size="medium"
       />
-      <Button onClick={save} variant="contained" color="success" size="medium">
+      <Button onClick={save} disabled={disable} variant="contained" color="success" size="medium">
         Save
       </Button>
+      {disable && <p>Thank you!</p>}
     </div>
   );
 };

@@ -19,6 +19,7 @@ const login = async (req, res) => {
     redirect_uri: "http://localhost:3000/callback",
     grant_type: "authorization_code",
   });
+
   // response.data has both access and ID token
   const decoded = jwt.decode(response.data.id_token);
   const loginEmail = decoded.email;
